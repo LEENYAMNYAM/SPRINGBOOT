@@ -42,6 +42,13 @@ dependencies {
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     // https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+
+    // https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api
+    implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api")
+    // https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+    // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    implementation 'jakarta.servlet:jakarta.servlet-api'
 }
 
 tasks.named('test') {

@@ -9,7 +9,10 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jmt.board01.mapper.BoardMapper">
 
-    <!-- 전체보기 -->
+    <!-- 전체보기
+        id는 BoardMapper(위에 namespace에 적은 경로의 파일)에 있는 함수의 이름을 사용하면 됨)
+        resultType은 application.properties 에서 경로설정을 해주었기 때문에 BoardDTO만 적어도 됨. -->
+
     <select id="selectAll" resultType="BoardDTO">
         select * from tbl_board
     </select>
@@ -26,7 +29,7 @@
 
     <!-- 삭제하기 -->
     <delete id="deleteByBno">
-        delete from tbl_board where bno=#{bon}
+        delete from tbl_board where bno=#{bno}
     </delete>
 
     <!-- 수정하기 -->
@@ -34,4 +37,8 @@
         update tbl_board set title=#{title}, content=#{content}, author=#{author} where bno=#{bno}
     </update>
 
+    <!-- 읽은 횟수 증가 -->
+    <update id="updateReadCount">
+        update tbl_board set readcount=readcount+1 where bno=#{bno}
+    </update>
 </mapper>

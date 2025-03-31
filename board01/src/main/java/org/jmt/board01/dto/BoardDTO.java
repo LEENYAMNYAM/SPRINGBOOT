@@ -9,7 +9,7 @@ import java.util.Date;
 // NoArgs : 파라미터 없는 기본생성자
 // AllArgs : 모든 필드값을 파라미터로 받는 생성자
 // RequiredArgs : 일부분만 파라미터로 받는 생성자 final을 필요로함
-// Builder 등 : 여러가지 생성자를 만들 수 있음.
+// Builder ... 등등 : 여러가지 객체를 만들 수 있음.
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

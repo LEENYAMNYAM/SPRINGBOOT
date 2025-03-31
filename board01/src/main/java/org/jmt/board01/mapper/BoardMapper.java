@@ -10,19 +10,21 @@ public interface BoardMapper {
 
 //    Mapper는 리턴값을 하나만 가져옴(2개 안됨)
 
-    //전체보기
+    // 전체보기
     List<BoardDTO> selectAll();
 
-    //추가하기
+    // 추가하기
     void insert(BoardDTO board);
 
-    //상세보기
+    // 상세보기
     BoardDTO selectByBno(int bno);
 
-    //삭제하기
+    // 삭제하기
     void deleteByBno(int bno);
 
     // 수정하기
     void updateByBno(BoardDTO board);
 
+    // 읽은 횟수 증가
+    void updateReadCount(int bno);
 }

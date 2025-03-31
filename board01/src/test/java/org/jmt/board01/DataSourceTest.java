@@ -43,4 +43,26 @@ public class DataSourceTest {
             log.info(dto);
         }
     }
+
+    @Test
+    public void selectOneTest() throws SQLException {
+        BoardDTO dto = boardMapper.selectByBno(1);
+        log.info(dto);
+    }
+
+    @Test
+    public void updateTest() throws SQLException {
+        BoardDTO dto = new BoardDTO();
+        dto.setTitle("title수정");
+        dto.setContent("content수정");
+        dto.setAuthor("user00");
+        dto.setBno(1);
+        boardMapper.updateByBno(dto);
+    }
+
+    @Test
+    public void deleteTest() throws SQLException {
+        boardMapper.deleteByBno(1);
+    }
+
 }
