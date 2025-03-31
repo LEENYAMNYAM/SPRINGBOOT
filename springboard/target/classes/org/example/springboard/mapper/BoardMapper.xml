@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboard.mapper.BoardMapper">
+    <sql id="search">
+        <where>
+            <if test="searchWord != null and searchField == 'subject'">
+                subject like '%${searchWord}%'
+            </if>
+            <if test="searchWord != null and searchField == 'content'">
+                content like '%${searchWord}%'
+            </if>
+        </where>
+    </sql>
+<!--    id는 함수이름으로 접근하면됨-->
+    <select id="searchList" resultType="org.example.springboard.dto.BoardDTO">
+        select * from board
+        <include refid="search"></include>
+    </select>
+    <select id="searchCount" resultType="int">
+        select count(*) from board
+        <include refid="search"></include>
+    </select>
+</mapper>

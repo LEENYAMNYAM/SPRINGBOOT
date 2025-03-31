@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.jmt.board01.DataSourceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-26T07:29:01.899Z" hostname="DESKTOP-FDCFACG" time="1.144">
+  <properties/>
+  <testcase name="selectALLTest()" classname="org.jmt.board01.DataSourceTest" time="1.144"/>
+  <system-out><![CDATA[16:28:59.927 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.jmt.board01.DataSourceTest]: DataSourceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:29:00.058 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.jmt.board01.Board01Application for test class org.jmt.board01.DataSourceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.4)
+
+2025-03-26T16:29:00.548+09:00  INFO 12000 --- [    Test worker] org.jmt.board01.DataSourceTest           : Starting DataSourceTest using Java 17.0.13 with PID 12000 (started by admin in D:\JMT\Spring_boot\workspace\board01)
+2025-03-26T16:29:00.550+09:00  INFO 12000 --- [    Test worker] org.jmt.board01.DataSourceTest           : No active profile set, falling back to 1 default profile: "default"
+2025-03-26T16:29:01.877+09:00  INFO 12000 --- [    Test worker] org.jmt.board01.DataSourceTest           : Started DataSourceTest in 1.615 seconds (process running for 2.844)
+2025-03-26T16:29:02.678+09:00  INFO 12000 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-26T16:29:02.980+09:00  INFO 12000 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@188bf4d8
+2025-03-26T16:29:02.982+09:00  INFO 12000 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-26T16:29:03.030+09:00  INFO 12000 --- [    Test worker] org.jmt.board01.DataSourceTest           : BoardDTO(bno=1, title=제목1, content=내용1, author=user00, postdate=Wed Mar 26 12:46:36 KST 2025, readcount=0)
+2025-03-26T16:29:03.031+09:00  INFO 12000 --- [    Test worker] org.jmt.board01.DataSourceTest           : BoardDTO(bno=2, title=title22, content=content22, author=author22, postdate=Wed Mar 26 15:53:24 KST 2025, readcount=0)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

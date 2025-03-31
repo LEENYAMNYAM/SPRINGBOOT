@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!-- db세팅-->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springdb?userSSL=false&amp;serverTimezone=Asia/Seoul"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+<!--    버전업되서 요 아래에 안적어도 된다고 함
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+            </props>
+        </property>-->
+    </bean>
+    <!-- dbct? 뭐시기 방식이라서 어쩌구 저쩌구...-->
+    <!-- 솔직히 뭔소린지 모르겠음-->
+        <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+              destroy-method="close">
+            <constructor-arg ref="hikariConfig"/>
+        </bean>
+
+    <!--mybatis세팅-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- mybatis-spring을 이용해서 지난번보다 더 간단히 만들 수 있다고 함-->
+    <!-- mapper주소(Mapper.xml이랑 Mapper.java랑)를 서로 맞춰줘야 된다고 함. 그래서 같이 로드하게됨-->
+    <mybatis-spring:scan base-package="org.example.springboard.mapper"/>
+    <!--servlet-context.xml로 가서-->
+
+</beans>

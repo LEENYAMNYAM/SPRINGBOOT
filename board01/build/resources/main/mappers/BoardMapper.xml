@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+     1. 구글에 검색해서 mybatis 홈페이지접속
+     2. 한글버전 - 시작하기(영어버전은 바로 Getting Started)
+     3. 매핑된 SQL 구문 살펴보기(Exploring Mapped SQL Statements) 전체 복사
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jmt.board01.mapper.BoardMapper">
+
+    <!-- 전체보기 -->
+    <select id="selectAll" resultType="BoardDTO">
+        select * from tbl_board
+    </select>
+
+    <!-- 추가하기 -->
+    <insert id="insert">
+        insert into tbl_board(title, content, author) values(#{title}, #{content}, #{author})
+    </insert>
+
+    <!-- 상세보기 -->
+    <select id="selectByBno" resultType="BoardDTO">
+        select * from tbl_board where bno=#{bno}
+    </select>
+
+    <!-- 삭제하기 -->
+    <delete id="deleteByBno">
+        delete from tbl_board where bno=#{bon}
+    </delete>
+
+    <!-- 수정하기 -->
+    <update id="updateByBno">
+        update tbl_board set title=#{title}, content=#{content}, author=#{author} where bno=#{bno}
+    </update>
+
+</mapper>
