@@ -30,7 +30,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
-    // test에서 lombok setting
+
+    // test에서 lombok setting[test에서  Log4j2(롬북어노테이션)을 쓸수있게 해줌]
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
