@@ -19,7 +19,7 @@
                     <c:forEach var="board" items="${boardlist}">
                         <tr>
                             <th scope="row"> ${board.bno}</th>
-                            <td><a href="/board/getBoard?bno=${board.bno}"> ${board.title} </a></td>
+                            <td><a href="/board/boardView?bno=${board.bno}"> ${board.title} </a></td>
                             <td> ${board.author}</td>
                             <td> <fmt:formatDate value="${board.postdate}"/></td>
                             <td> ${board.readcount}</td>

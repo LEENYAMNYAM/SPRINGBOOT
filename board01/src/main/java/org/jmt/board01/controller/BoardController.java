@@ -7,10 +7,7 @@ import org.jmt.board01.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,11 +38,23 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    @GetMapping("/getBoard")
-    public String getBoard(@RequestParam("bno") int bno, Model model) {
+    @GetMapping({"/boardView", "boardUpdate"})
+    public void getBoard(@RequestParam("bno") int bno, Model model) {
         /* 지금처럼 파라미터이름과 RequsetParam 으로 받아오는 값의 명칭이 같으면  RequestParam 안적어줘도 됨. */
         BoardDTO boardDTO = boardService.getBoard(bno);
         model.addAttribute("board", boardDTO);
-        return "board/boardView";
     }
+    @PostMapping("/boardUpdate")
+    public String UpdateBoard(BoardDTO board) {
+        boardService.updateBoard(board);
+        return "redirect:/board/boardView?bno=" + board.getBno();
+    }
+
+    @GetMapping("/delete")
+    public String deleteBoard(@RequestParam("bno") int bno) {
+        boardService.deleteBoard(bno);
+        return "redirect:/board/list";
+    }
+
+
 }
