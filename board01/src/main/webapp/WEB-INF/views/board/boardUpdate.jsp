@@ -3,7 +3,7 @@
 <div class="row-content">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title"> 게시글 등록 </h2>
+            <h2 class="card-title"> 게시글 수정 </h2>
             <form method="post" action="/board/boardUpdate">
                 <input type="hidden" name="bno" value="${board.bno}">
                 <div class="mb-3">
