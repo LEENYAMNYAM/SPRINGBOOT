@@ -1,6 +1,7 @@
 package org.jmt.jpa01.repository;
 
 import lombok.extern.log4j.Log4j2;
+import org.jmt.jpa01.domain.Board;
 import org.jmt.jpa01.domain.Item;
 import org.jmt.jpa01.domain.ItemSellStatus;
 import org.jmt.jpa01.domain.Member;
@@ -12,6 +13,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Log4j2
@@ -22,6 +24,8 @@ public class TestRepository {
     private MemberRepository memberRepository;
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Test
     public void testDataSource() throws SQLException {
@@ -30,12 +34,22 @@ public class TestRepository {
     }
 
     // MemberRepository
+
+    @Test
+    public void testfindName(){
+        Member member = memberRepository.name("admin");
+        log.info(member);
+    }
+    @Test
+    public void testfindByUsername() {
+    }
+
     @Test
     public void testInsert() throws SQLException{
         Member member = new Member();
-        member.setName("test2");
+        member.setName("admin");
         member.setPassword("123456");
-        member.setEmail("test2@gamil.com");
+        member.setEmail("admin@gamil.com");
         member.setAddr("부산");
         memberRepository.save(member);
     }
@@ -69,7 +83,7 @@ public class TestRepository {
     }
 
 
-    // ItemRepository
+    // ItemRepository /////////////////
     @Test
     public void testItemInsert() throws SQLException{
         Item item = Item.builder()
@@ -97,19 +111,34 @@ public class TestRepository {
         log.info(item);
     }
 
-    @Test
-    public void testItemUpdate() throws SQLException{
-        Item item = itemRepository.findById(2L).get();
-        item.setItemNm("배");
-        item.setPrice(1000);
-        item.setStockNumber(10);
-        item.setItemDetail("나주 꿀배");
-        itemRepository.save(item);
-    }
+//    @Test
+//    public void testItemUpdate() throws SQLException{
+//        /* 객체로 가져올때는 Optional<Item> 형으로 가져와야함.*/
+////      Optional<Item> item1 = itemRepository.findById(3L);
+//        /* 지금은 get()을 사용해서 Item형을 바로 가져옴 */
+//        Item item = itemRepository.findById(2L).get();
+//        item.setItemNm("마늘");
+//        item.setItemDetail("의성 마늘");
+//        itemRepository.save(item);
+//    }
 
     @Test
     public void testItemDelete() throws SQLException{
         itemRepository.deleteById(3L);
     }
+
+    // Board/////////////////////////////////
+
+    @Test
+    public void TestBoardInsert(){
+        Board board = new Board();
+        board.setTitle("title");
+        board.setContent("content");
+        board.setAuthor("author");
+        boardRepository.save(board);
+    }
+
+
+
 
 }
