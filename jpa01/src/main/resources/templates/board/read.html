@@ -39,19 +39,18 @@
         <input type="text" class="form-control" name="updatedate"
                th:value="${board.updateDate}" readonly>
       </div>
-      <div class="mb-3">
-        <a th:href="@{/board/modify(bno=${board.bno})}">
+      <div class="mb-3" th:with="link=${pageRequestDTO.getLink()}">
+        <a th:href="|@{/board/modify(bno=${board.bno})}&${link}|">
           <button type="button" class="btn btn-primary">Modify</button>
         </a>
         <a th:href="@{/board/remove(bno=${board.bno})}">
           <button type="button" class="btn btn-danger">Remove</button>
         </a>
-        <a th:href="@{/board/list}">
+        <a th:href="|@{/board/list}?${link}|">
           <button type="button" class="btn btn-secondary">Board List</button>
         </a>
       </div>
-<!--/*      </form> */-->
+      <!--/*      </form> */-->
     </div>
   </div>
-
 </div>

@@ -2,8 +2,14 @@ package org.jmt.jpa01.service;
 
 import org.jmt.jpa01.domain.Board;
 import org.jmt.jpa01.dto.BoardDTO;
+import org.jmt.jpa01.dto.PageRequestDTO;
+import org.jmt.jpa01.dto.PageResponseDTO;
 import org.jmt.jpa01.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,17 +53,39 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.deleteById(bno);
     }
 
+    /* 페이징 있을 시 */
     @Override
-    public List<BoardDTO> readAllBoards() {
-        List<Board> boards = boardRepository.findAll();
-        List<BoardDTO> boardDTOs = boards.stream()
+    public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable("bno");
+
+        /* 검색 없을 때 */
+//        Page<Board> result = boardRepository.findAll(pageable);
+        /* 검색 기능 추가 */
+        Page<Board> result = boardRepository.searchTitle(pageRequestDTO.getKeyword(), pageable);
+
+        List<BoardDTO> dtoList = result.getContent().stream()
                 .map(board -> entityToDto(board))
                 .collect(Collectors.toList());
-        /* 아래랑 같은 의미임 */
-//        List<BoardDTO> boardDTOList = new ArrayList<>();
-//        for (Board board : boards){
-//            boardDTOList.add(entityToDto(board));
-//        }
-        return boardDTOs;
+        return PageResponseDTO.<BoardDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total((int)result.getTotalElements())
+                .build();
     }
+
+    /* 페이징이 없을 시 */
+//    @Override
+//    public List<BoardDTO> readAllBoards() {
+//        Pageable pageable = PageRequest.of(0, 5, Sort.by("bno").descending());
+//        List<Board> boards = boardRepository.findAll(pageable).getContent();
+//        List<BoardDTO> boardDTOs = boards.stream()
+//                .map(board -> entityToDto(board))
+//                .collect(Collectors.toList());
+//        /* 아래랑 같은 의미임 */
+////        List<BoardDTO> boardDTOList = new ArrayList<>();
+////        for (Board board : boards){
+////            boardDTOList.add(entityToDto(board));
+////        }
+//        return boardDTOs;
+//    }
 }

@@ -2,6 +2,8 @@ package org.jmt.jpa01.service;
 
 import org.jmt.jpa01.domain.Board;
 import org.jmt.jpa01.dto.BoardDTO;
+import org.jmt.jpa01.dto.PageRequestDTO;
+import org.jmt.jpa01.dto.PageResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +13,10 @@ public interface BoardService {
     BoardDTO readBoard(Long id);
     void updateBoard(BoardDTO boardDTO);
     void deleteBoard(Long id);
-    List<BoardDTO> readAllBoards();
+//    페이징 없을 시
+//    List<BoardDTO> readAllBoards();
+//    페이징 있을 시
+     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
 
     default Board dtoToEntity(BoardDTO boardDTO) {
         Board board = Board.builder()
