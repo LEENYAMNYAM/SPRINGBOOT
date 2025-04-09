@@ -46,6 +46,7 @@ public class BoardController {
     public void read_modify(@RequestParam("bno") Long bno, PageRequestDTO pageRequestDTO, Model model) {
         BoardDTO boardDTO = boardService.readBoard(bno);
         model.addAttribute("board", boardDTO);
+        model.addAttribute("pageRequestDTO", pageRequestDTO);
     }
 
 //  modify

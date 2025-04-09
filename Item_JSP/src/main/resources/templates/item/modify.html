@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<div layout:fragment="content">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">상품 정보 수정</h5>
+      <form id="f1">
+        <input type="hidden" name="id" th:value="${item.id}">
+<!--        <input type="hidden" name="author" th:value="${board.author}">-->
+        <div class="input-group mb-3">
+          <span class="input-group-text">상 품 명</span>
+          <input type="text" name="itemNm" class="form-control" th:value="${item.itemNm}">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">가    격</span>
+          <input type="text" name="price" class="form-control" th:value="${item.price}">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">상세 설명</span>
+          <textarea name="itemDetail" class="form-control col-sm-5" rows="5">[[${item.itemDetail}]]</textarea>
+        </div>
+        <div class="form-floating mb-3">
+          <select class="form-select" id="sel1" name="itemSellStatus">
+            <option value="판매중" th:selected="${item.itemSellStatus == '판매중'}">판매중</option>
+            <option value="판매완료" th:selected="${item.itemSellStatus == '판매완료'}">판매완료</option>
+            <option value="입고대기"  th:selected="${item.itemSellStatus == '입고대기'}">입고대기</option>
+          </select>
+          <label for="sel1" class="form-label">판매 상태 : </label>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">memo</span>
+          <input type="text" name="memo" class="form-control" th:value="${item.memo}">
+        </div>
+        <div class="input-group mb-3">
+          <button type="button" class="btn btn-outline-primary">수      정</button>
+          <button type="button" class="btn btn-outline-danger">삭      제</button>
+          <button type="button" class="btn btn-outline-secondary">상품 리스트</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script layout:fragment="script" th:inline="javascript">
+ const formObj=document.querySelector("#f1")
+ document.querySelector(".btn-outline-primary").addEventListener("click",function(e){
+   e.preventDefault()
+   formObj.action="/item/modify"
+   formObj.method="post"
+   formObj.submit()
+ },false)
+ document.querySelector(".btn-outline-danger").addEventListener("click",function(e){
+   e.preventDefault()
+   formObj.action="/item/remove"
+   formObj.method="get"
+   formObj.submit()
+ },false)
+ document.querySelector(".btn-outline-secondary").addEventListener("click",function(e){
+   e.preventDefault()
+   self.location="/item/list"
+ },false)
+
+</script>

@@ -45,10 +45,19 @@ public class Item {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-
     private String memo;
 
     @Transient
     private String remark;
+
+    public void change(String itemNm, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus, String memo) {
+        this.itemNm = itemNm;
+        this.price = price;
+        this.stockNumber = stockNumber;
+        this.itemDetail = itemDetail;
+        this.itemSellStatus = itemSellStatus;
+        this.memo = memo;
+    }
+
 
 }

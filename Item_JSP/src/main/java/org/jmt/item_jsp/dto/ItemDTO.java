@@ -1,4 +1,4 @@
-package org.jmt.item_jsp;
+package org.jmt.item_jsp.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.persistence.*;

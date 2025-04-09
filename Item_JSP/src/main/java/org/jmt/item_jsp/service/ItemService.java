@@ -1,9 +1,7 @@
 package org.jmt.item_jsp.service;
 
-import org.jmt.item_jsp.ItemDTO;
+import org.jmt.item_jsp.dto.ItemDTO;
 import org.jmt.item_jsp.domain.Item;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

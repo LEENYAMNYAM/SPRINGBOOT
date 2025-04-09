@@ -8,37 +8,39 @@
       <h5 class="card-title">아이템 등록</h5>
       <form action="/item/register" method="post">
         <div class="input-group mb-3">
-          <span class="input-group-text">ItemName</span>
-          <input type="text" name="itemNm" class="form-control" placeholder="ItemName">
+          <span class="input-group-text">상 품 명</span>
+          <input type="text" name="itemNm" class="form-control" placeholder="상품명">
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text">Price</span>
-          <input type="text" name="price" class="form-control" placeholder="Price">
+          <span class="input-group-text">가    격</span>
+          <input type="text" name="price" class="form-control" placeholder="가격">
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text">StockNumber</span>
-          <input type="text" name="stockNumber" class="form-control" placeholder="StockNumber">
+          <span class="input-group-text">재고 개수</span>
+          <input type="text" name="stockNumber" class="form-control" placeholder="재고 개수">
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text">ItemDetail</span>
+          <span class="input-group-text">상세 설명</span>
           <textarea name="itemDetail" class="form-control col-sm-5" rows="5"></textarea>
         </div>
-        <label for="sellStatus" class="form-label">SellStatus:</label>
-        <input class="form-control" list="itemSellStatus" name="sellStatus" id="sellStatus">
-        <datalist id="itemSellStatus">
-          <option value="판매중">
-          <option value="판매완료">
-          <option value="입고대기">
-        </datalist>
+        <div class="form-floating mb-3">
+          <select class="form-select" id="sel1" name="itemSellStatus">
+            <option value="판매중">판매중</option>
+            <option value="판매완료">판매완료</option>
+            <option value="입고대기">입고대기</option>
+          </select>
+          <label for="sel1" class="form-label">판매 상태 : </label>
+        </div>
+
         <div class="input-group mb-3">
-          <span class="input-group-text">Memo</span>
+          <span class="input-group-text">특이 사항</span>
           <textarea name="memo" class="form-control col-sm-5" rows="5"></textarea>
         </div>
         <div class="input-group mb-3">
-          <button type="submit" class="btn btn-primary">상품 등록</button>
-          <button type="reset" class="btn btn-secondary">리셋</button>
+          <button type="submit" class="btn btn-primary">상 품 등 록</button>
+          <button type="reset" class="btn btn-secondary">리      셋</button>
           <a th:href="@{/item/list}">
-            <button type="button" class="btn btn-info">상품 목록</button>
+            <button type="button" class="btn btn-info">상 품 목 록</button>
           </a>
         </div>
       </form>

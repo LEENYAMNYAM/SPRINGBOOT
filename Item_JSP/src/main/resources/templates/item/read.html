@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}" lang="en">
+<div layout:fragment="content">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">상품 상세 정보</div>
+<!-- /*     <form method="post" action="/board/register"> */-->
+      <div class="mb-3">
+        <label class="form-label">상 품 번 호</label>
+        <input type="text" class="form-control" name="id" th:value="${item.id}" readonly="readonly">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">상  품  명</label>
+        <input type="text" class="form-control" name="itemNm" th:value="${item.itemNm}" readonly="readonly">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">가      격</label>
+        <input type="text" class="form-control" name="price"
+               th:value="${item.price}" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">재 고 개 수</label>
+        <input type="text" class="form-control" name="stockNumber"
+               th:value="${item.stockNumber}" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">상 세 설 명</label>
+        <textarea class="form-control" name="itemDetail" rows="3" readonly="readonly">[[${item.itemDetail}]]</textarea>
+      </div>
+      <div class="form-floating mb-3">
+        <select class="form-select" id="sel1" name="itemSellStatus" disabled>
+          <option value="판매중" th:selected="${item.itemSellStatus == '판매중'}">판매중</option>
+          <option value="판매완료" th:selected="${item.itemSellStatus == '판매완료'}">판매완료</option>
+          <option value="입고대기"  th:selected="${item.itemSellStatus == '입고대기'}">입고대기</option>
+        </select>
+        <label for="sel1" class="form-label">판 매 상 태 : </label>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">memo</label>
+        <input type="text" name="memo" class="form-control" th:value="${item.memo}" readonly="readonly">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">업로드 시간</label>
+        <input type="text" class="form-control" name="regTime"
+               th:value="${item.regTime}" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">업데이트 시간</label>
+        <input type="text" class="form-control" name="updateTime"
+               th:value="${item.updateTime}" readonly>
+      </div>
+      <div class="mb-3">
+        <a th:href="@{/item/modify(id=${item.id})}">
+          <button type="button" class="btn btn-primary">수      정</button>
+        </a>
+        <a th:href="@{/item/remove(id=${item.id})}">
+          <button type="button" class="btn btn-danger">삭      제</button>
+        </a>
+        <a th:href="@{/item/list}">
+          <button type="button" class="btn btn-secondary">상품 리스트</button>
+        </a>
+      </div>
+      <!--/*      </form> */-->
+    </div>
+  </div>
+</div>

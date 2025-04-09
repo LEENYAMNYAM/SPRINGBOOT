@@ -9,83 +9,82 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">itemNm</th>
-                    <th scope="col">price</th>
-                    <th scope="col">stockNumber</th>
-                    <th scope="col">itemSellStatus</th>
-                    <th scope="col">itemSellStatus</th>
-                    <th scope="col">itemSellStatus</th>
-                    <th scope="col">itemSellStatus</th>
-                    <th scope="col">itemSellStatus</th>
+                    <th scope="col">상품 번호</th>
+                    <th scope="col">상품명</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">재고 개수</th>
+                    <th scope="col">판매 상태</th>
+                    <th scope="col">업로드 시간</th>
+                    <th scope="col">업데이트 시간</th>
                 </tr>
                 </thead>
-                <tbody th:with="link=${pageRequestDTO.getLink()}">
-                <tr th:each="board:${responseDTO.dtoList}">
-                    <td>[[${board.bno}]]</td>
-                    <td><a th:href="|@{/board/read(bno=${board.bno})}&${link}|">[[${board.title}]]</a></td>
-                    <td>[[${board.author}]]</td>
-                    <td>[[${board.regDate}]]</td>
-                    <td>[[${board.updateDate}]]</td>
-                    <td>[[${board.readcount}]]</td>
+                <tbody>
+                <tr th:each="item:${itemList}">
+                    <td>[[${item.id}]]</td>
+                    <td><a th:href="@{/item/read(id=${item.id})}">[[${item.itemNm}]]</a></td>
+                    <td>[[${item.price}]]</td>
+                    <td>[[${item.stockNumber}]]</td>
+                    <td>[[${item.itemSellStatus}]]</td>
+                    <td>[[${item.regTime}]]</td>
+                    <td>[[${item.updateTime}]]</td>
                 </tr>
                 </tbody>
             </table>
-            <div class="float-start">
-                <form action="/board/list" method="get">
-                    <div class="col">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <select class="form-select" aria-label="Default select example" name="type">
-                                    <option value="">---</option>
-                                    <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
-                                    <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
-                                    <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
-                                    <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
-                                    <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
-                                </select>
-                            </div>
-                            <input type="text" class="input-control" name="keyword" th:value="${pageRequestDTO.keyword}">
-                            <button class="btn btn-outline-secondary searchBtn" type="submit">검색</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="float-end">
-                <ul class="pagination">
-                    <li class="page-item" th:if="${responseDTO.prev}">
-                        <a class="page-link" th:data-num="${responseDTO.start - 1}">Previous</a>
-                    </li>
-                    <th:block th:each="i:${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-                        <li th:class="${responseDTO.page==i}?'page-item active':'page-item'">
-                            <a class="page-link" th:data-num="${i}">[[${i}]]</a>
-                        </li>
-                    </th:block>
-                    <li class="page-item" th:if="${responseDTO.next}">
-                        <a class="page-link" th:data-num="${responseDTO.end + 1}">Next</a>
-                    </li>
-                </ul>
-            </div>
+<!--            <div class="float-start">-->
+<!--                <form action="/item/list" method="get">-->
+<!--                    <div class="col">-->
+<!--                        <div class="input-group">-->
+<!--                            <div class="input-group-prepend">-->
+<!--                                <select class="form-select" aria-label="Default select example" name="type">-->
+<!--                                    <option value="">-&#45;&#45;</option>-->
+<!--                                    <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>-->
+<!--                                    <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>-->
+<!--                                    <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>-->
+<!--                                    <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>-->
+<!--                                    <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <input type="text" class="input-control" name="keyword" th:value="${pageRequestDTO.keyword}">-->
+<!--                            <button class="btn btn-outline-secondary searchBtn" type="submit">검색</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="float-end">-->
+<!--                <ul class="pagination">-->
+<!--                    <li class="page-item" th:if="${responseDTO.prev}">-->
+<!--                        <a class="page-link" th:data-num="${responseDTO.start - 1}">Previous</a>-->
+<!--                    </li>-->
+<!--                    <th:block th:each="i:${#numbers.sequence(responseDTO.start, responseDTO.end)}">-->
+<!--                        <li th:class="${responseDTO.page==i}?'page-item active':'page-item'">-->
+<!--                            <a class="page-link" th:data-num="${i}">[[${i}]]</a>-->
+<!--                        </li>-->
+<!--                    </th:block>-->
+<!--                    <li class="page-item" th:if="${responseDTO.next}">-->
+<!--                        <a class="page-link" th:data-num="${responseDTO.end + 1}">Next</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
 
         </div>
     </div>
 </div>
-<script layout:fragment="script" th:inline="javascript">
-    document.querySelector(".pagination").addEventListener("click", function(e){
+<!--<script layout:fragment="script" th:inline="javascript">-->
+<!--    document.querySelector(".pagination").addEventListener("click", function(e){-->
 
-        /* 디폴트 클릭 시 HREF로 가는 이벤트를 막겠다, */
-        e.preventDefault()
-        /* 얘도 propagation되는걸 막는다는 의미 */
-        e.stopPropagation()
-        const target=e.target
-        if(target.tagName!=='A'){
-            return
-        }
-        const num = target.getAttribute("data-num")
-        self.location=`/board/list?page=${num}`
+<!--        /* 디폴트 클릭 시 HREF로 가는 이벤트를 막겠다, */-->
+<!--        e.preventDefault()-->
+<!--        /* 얘도 propagation되는걸 막는다는 의미 */-->
+<!--        e.stopPropagation()-->
+<!--        const target=e.target-->
+<!--        if(target.tagName!=='A'){-->
+<!--            return-->
+<!--        }-->
+<!--        const num = target.getAttribute("data-num")-->
+<!--        self.location=`/item/list?page=${num}`-->
 
-    })
-</script>
+<!--    })-->
+<!--</script>-->
 
 
 
