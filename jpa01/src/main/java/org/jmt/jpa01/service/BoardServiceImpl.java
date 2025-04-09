@@ -61,7 +61,11 @@ public class BoardServiceImpl implements BoardService {
         /* 검색 없을 때 */
 //        Page<Board> result = boardRepository.findAll(pageable);
         /* 검색 기능 추가 */
-        Page<Board> result = boardRepository.searchTitle(pageRequestDTO.getKeyword(), pageable);
+//        Page<Board> result = boardRepository.searchTitle(pageRequestDTO.getKeyword(), pageable);
+        Page<Board> result = boardRepository.searchAll(
+                pageRequestDTO.getTypes(),
+                pageRequestDTO.getKeyword(),
+                pageable);
 
         List<BoardDTO> dtoList = result.getContent().stream()
                 .map(board -> entityToDto(board))

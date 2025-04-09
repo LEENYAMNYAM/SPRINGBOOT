@@ -41,7 +41,7 @@ public class Item {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regTime;
 
-    @UpdateTimestamp
+    @UpdateTimestamp                                             
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
