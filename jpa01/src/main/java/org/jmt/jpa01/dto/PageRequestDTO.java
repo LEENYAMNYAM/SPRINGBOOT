@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 
 import java.net.URLEncoder;
 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -30,7 +29,6 @@ public class PageRequestDTO {
         }
         return type.split("");
     }
-
 
     public Pageable getPageable(String...props) {
         /* 파라미터 : String 형 배열이 됨. 몇개 올 지 모르므로 이렇게 씀 */
