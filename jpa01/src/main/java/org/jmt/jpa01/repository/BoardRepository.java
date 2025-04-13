@@ -12,5 +12,4 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch
 //    @Query("select b from Board b where b.title like concat('%', :keyword ,'%') ")
 //    Page<Board> searchTitle(String keyword, Pageable pageable);
 
-
 }

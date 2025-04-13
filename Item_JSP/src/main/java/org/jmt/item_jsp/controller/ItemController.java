@@ -48,4 +48,9 @@ public class ItemController {
         return "redirect:/item/read?id="+itemDTO.getId();
     }
 
+    @GetMapping("/remove")
+    public String remove(Long id) {
+        itemService.deleteItem(id);
+        return "redirect:/item/list";
+    }
 }

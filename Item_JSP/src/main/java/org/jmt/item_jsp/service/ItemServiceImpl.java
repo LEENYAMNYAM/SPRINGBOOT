@@ -50,6 +50,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItem(Long id) {
-
+        itemRepository.deleteById(id);
     }
 }
