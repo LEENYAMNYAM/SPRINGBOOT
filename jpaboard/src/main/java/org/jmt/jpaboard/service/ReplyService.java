@@ -6,7 +6,7 @@ import org.jmt.jpaboard.dto.PageResponseDTO;
 import org.jmt.jpaboard.dto.ReplyDTO;
 
 public interface ReplyService {
-    void register(ReplyDTO replyDTO);
+    Long register(ReplyDTO replyDTO);
     ReplyDTO read(Long rno);
     void modify(ReplyDTO replyDTO);
     void remove(Long rno);

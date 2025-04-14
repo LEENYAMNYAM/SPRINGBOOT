@@ -18,8 +18,8 @@ public class TestRepository {
     @Test
     public void testReplySave() {
         ReplyEntity reply = new ReplyEntity();
-        reply.setReplyText("This is a test reply");
-        reply.setAuthor("Author");
+        reply.setReplyText("댓글9입니다.");
+        reply.setAuthor("admin90");
         BoardEntity board = boardRepository.findById(1L).get();
         reply.setBoardEntity(board);
         replyRepository.save(reply);
