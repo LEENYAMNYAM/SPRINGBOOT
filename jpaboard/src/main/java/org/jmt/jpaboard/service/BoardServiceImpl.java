@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDTO readBoard(Long bno) {
-        BoardEntity boardEntity = boardRepository.findById(bno).orElse(null);
+        //BoardEntity boardEntity = boardRepository.findById(bno).orElse(null);
+        BoardEntity boardEntity = boardRepository.findByIdWithImages(bno)
+                .orElse(null);
         boardEntity.updateReadcount();
         boardRepository.save(boardEntity);
         return entityToDto(boardEntity);
@@ -38,6 +41,13 @@ public class BoardServiceImpl implements BoardService {
     public void updateBoard(BoardDTO boardDTO) {
         BoardEntity boardEntity = boardRepository.findById(boardDTO.getBno()).orElse(null);
         boardEntity.change(boardDTO.getTitle(), boardDTO.getContent());
+        boardEntity.removeImage();
+        if(boardDTO.getFileNames() != null) {
+            for (String filename : boardDTO.getFileNames()) {
+                String[] arr = filename.split("_");
+                boardEntity.addImage(arr[0], arr[1]);
+            }
+        }
         boardRepository.save(boardEntity);
     }
 
@@ -54,9 +64,14 @@ public class BoardServiceImpl implements BoardService {
                 pageRequestDTO.getKeyword(),
                 pageable);
 
-        List<BoardDTO> dtoList = result.stream()
+        List<BoardDTO> dtoList = result.getContent().stream()
                 .map(entity -> entityToDto(entity))
                 .collect(Collectors.toList());
+
+        /* 윗 부분과 동일함 */
+//        List<BoardDTO> boardDTOs = new ArrayList<>();
+//        List<BoardDTO> dtoList = result.getContent().forEach(BoardEntity boardEntity ->
+//                boardDTOs.add(entityToDto(boardEntity)));
 
         return PageResponseDTO.<BoardDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)

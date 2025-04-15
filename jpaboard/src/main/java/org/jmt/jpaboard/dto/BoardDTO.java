@@ -25,4 +25,6 @@ public class BoardDTO {
     private int readcount;
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
+    private List<String> fileNames;
+
 }

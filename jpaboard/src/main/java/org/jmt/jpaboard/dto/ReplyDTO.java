@@ -21,6 +21,7 @@ public class ReplyDTO {
     private String replyText;
     @NotEmpty
     private String author;
+    @NotEmpty
     private Long bno;
     private LocalDateTime regDate;
     private LocalDateTime updateDate;

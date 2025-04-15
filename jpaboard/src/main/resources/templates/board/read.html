@@ -84,7 +84,6 @@
               <span class="input-group-text">Replyer</span>
               <input type="text" class="form-control author">
             </div>
-            <p> Modal body text goes here</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary registerBtn">Register</button>
@@ -93,6 +92,28 @@
         </div>
       </div>
     </div>
+    <div class="modal modifyModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title replyHeader"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Reply Text</span>
+              <input type="text" class="form-control modifyText">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+            <button type="button" class="btn btn-danger removeBtn">Remove</button>
+            <button type="button" class="btn btn-dark closeModifyBtn">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="/js/reply.js"></script>
@@ -102,8 +123,7 @@
   const replyList=document.querySelector(".replyList")
   const replyPaging=document.querySelector(".replyPaging")
   let page = 1
-  let size = [[$pageRequestDTO.size]]
-  print(size)
+  let size = [[${pageRequestDTO.size}]]
 
   /* 댓글 리스트 출력 함수 */
   function printList(dtoList){
@@ -112,7 +132,7 @@
       for(const dto of dtoList) {
         str += `<li class="list-group-item d-flex replyItem">
                     <span class="col-2">${dto.rno}</span>
-                    <span class="col-6" data-rno=${dto.rno}">${dto.replyText}</span>
+                    <span class="col-6" data-rno="${dto.rno}">${dto.replyText}</span>
                     <span class="col-2">${dto.author}</span>
                     <span class="col-2">${dto.regDate}</span>
                 </li>`
@@ -154,9 +174,9 @@
 
   /* 실제 댓글 호출 */
   /* 여기서 size 는 PageRequestDTO에 있는 size와 동일해야함.*/
-  printReplies(1,size,true)
+  printReplies(page,size,true)
 
-  /* 댓글 달기 모달 */
+  /* 댓글 달기(registerModal) 모달 */
   const registerModal = new bootstrap.Modal(document.querySelector(".registerModal"))
   const registerBtn = document.querySelector(".registerBtn")
   const replyText = document.querySelector(".replyText")
@@ -184,7 +204,7 @@
       registerModal.hide()
       replyText.value = ''
       author.value = ''
-      printReplies(1,size,true)
+      printReplies(page,size,true)
     }).catch(e=>{
       alert("댓글 입력오류")
     }, false)
@@ -202,6 +222,61 @@
     const pageNum = target.getAttribute("data-page")
     page = pageNum
     printReplies(page, size)
+  }, false)
+
+  /* 댓글 수정&삭제(modifyModal) 모달 */
+  const modifyModal = new bootstrap.Modal(document.querySelector(".modifyModal"))
+  const replyHeader = document.querySelector(".replyHeader")
+  const modifyText = document.querySelector(".modifyText")
+  const modifyBtn = document.querySelector(".modifyBtn")
+  const removeBtn = document.querySelector(".removeBtn")
+  const closeModifyBtn = document.querySelector(".closeModifyBtn")
+
+  replyList.addEventListener("click", function (e){
+    e.preventDefault()
+    e.stopPropagation()
+    const target = e.target
+    if(!target || target.tagName !== 'SPAN'){
+      return
+    }
+    const rno = target.getAttribute("data-rno")
+    if(!rno){
+      return;
+    }
+    getReply(rno).then(reply=>{
+      replyHeader.innerHTML = reply.rno
+      modifyText.value = reply.replyText
+      modifyModal.show()
+    }).catch(e=>alert('error'))
+  }, false)
+
+  modifyBtn.addEventListener("click",function (e){
+    const replyObj={
+      bno:bno,
+      author:author,
+      rno:replyHeader.innerHTML,
+      replyText:modifyText.value
+    }
+    modifyReply(replyObj).then(result =>{
+      alert(result.rno + "댓글이 수정됨")
+      replyText.value=''
+      modifyModal.hide()
+      printReplies(page, size)
+    }).catch(e=>{console.log(e)})
+  }, false)
+
+  removeBtn.addEventListener("click", function (e){
+    removeReply(replyHeader.innerHTML).then(result=>{
+      alert(result.rno +'댓글이 삭제됨')
+      replyText.value=''
+      modifyModal.hide()
+      page=1
+      printReplies(page, size)
+    }).catch(e=>{console.log(e)})
+  }, false)
+
+  closeModifyBtn.addEventListener("click", function (e){
+    modifyModal.hide()
   }, false)
 
 

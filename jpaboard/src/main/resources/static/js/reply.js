@@ -1,11 +1,14 @@
 
 /* add */
 async function addReply(replyObj){
-/* async : 비동기 통신(원래위치에서 전송하고 돌아옴 : 페이지는 가만히 있고 원하는 데이터만 가져옴 */
-    const response=await axios.post(`/replies/`, replyObj)
-    console.log( "response :" + response)
-    console.log("response.data : " + response.data)
-    return response.data;
+    try {
+        const response = await axios.post(`/replies/`, replyObj)
+        console.log("댓글 등록 응답:", response.data)
+        return response.data
+    } catch (error) {
+        console.error("댓글 등록 중 오류 발생:", error.response?.data || error.message)
+        throw error
+    }
 }
 
 /* get */
@@ -16,23 +19,25 @@ async function getReply(rno){
 
 /* modify */
 async function modifyReply(replyObj){
-    const response =await axios.put(`replies/${replyObj.rno}`, replyObj)
+    console.log(replyObj)
+    const response =await axios.put(`/replies/${replyObj.rno}`, replyObj)
     return response.data
 }
 
 /* delete */
-async function remove(rno){
-    const response = await axios.delete(`replies/${rno}`)
+async function removeReply(rno){
+    const response = await axios.delete(`/replies/${rno}`)
     return response.data
 }
 
 /* 댓글 list 가져오기 */
 async function getList({bno, page, size, goLast}){
-    const response = await axios.get(`/replies/list/${bno}`, {param:{page, size}})
+    const response = await axios.get(`/replies/list/${bno}`, {params:{page, size}})
+    /* goLast : 마지막 댓글이 달린 페이지로 이동시키기 위해 */
     if(goLast){
         const total=response.data.total
         const lastPage = parseInt(Math.ceil(total/size))
-        return getList({bno:bno, page:lastPage, size:size})
+        return getList({bno:bno, page:lastPage, size:size, goLast:false})
     }
     return response.data
 }
