@@ -31,8 +31,8 @@ public class UpDownController {
     private String uploadPath;
     @GetMapping("/uploadForm")
     public void uploadForm(){
-
     }
+
     @PostMapping(value="/uploadPro", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void upload(UploadFileDTO uploadFileDTO, BoardDTO boardDTO, Model model){
         log.info("~~~~~~~~~~~~~~"+uploadFileDTO);

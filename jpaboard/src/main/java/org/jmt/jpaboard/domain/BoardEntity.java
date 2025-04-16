@@ -2,17 +2,20 @@ package org.jmt.jpaboard.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.BatchSize;
+
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+
 @Table(name="tbl_board")
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@Builder
+@Entity
+@EqualsAndHashCode(of = "bno") // 순환 방지!
 @ToString(exclude = "imageSet")
 public class BoardEntity extends BaseEntity {
 
@@ -27,10 +30,10 @@ public class BoardEntity extends BaseEntity {
     private String author;
     private int readcount;
 
-    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL orphanRemoval=true)
-    @builder.Default
-    @BatchSize(size=20)
-    /* imageSet 생성할때 같이 생성하라는 의미 */
+    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval=true)
+    @Builder.Default
+    @BatchSize(size=20) /* imageSet 생성할때 같이 생성하라는 의미 */
     private Set<BoardImage> imageSet=new HashSet<>();
 
     public void addImage(String uuid, String filename) {
@@ -44,7 +47,8 @@ public class BoardEntity extends BaseEntity {
     }
 
     public void removeImage() {
-        imageSet.forEach(BoardImage boardImage -> boardImage.changeBoardEntity(null));
+        imageSet.forEach(boardImage ->
+                boardImage.changeBoardEntity(null));
         /*
         String[] strs ={"aaa","bbb"};
         for(String k:strs){} */

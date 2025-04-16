@@ -6,12 +6,13 @@ import org.jmt.jpaboard.dto.BoardDTO;
 import org.jmt.jpaboard.dto.PageRequestDTO;
 import org.jmt.jpaboard.dto.PageResponseDTO;
 import org.jmt.jpaboard.repository.BoardRepository;
+import org.jmt.jpaboard.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     BoardRepository boardRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Override
     public void registerBoard(BoardDTO boardDTO) {
@@ -41,8 +44,8 @@ public class BoardServiceImpl implements BoardService {
     public void updateBoard(BoardDTO boardDTO) {
         BoardEntity boardEntity = boardRepository.findById(boardDTO.getBno()).orElse(null);
         boardEntity.change(boardDTO.getTitle(), boardDTO.getContent());
-        boardEntity.removeImage();
         if(boardDTO.getFileNames() != null) {
+            boardEntity.removeImage();
             for (String filename : boardDTO.getFileNames()) {
                 String[] arr = filename.split("_");
                 boardEntity.addImage(arr[0], arr[1]);
@@ -51,8 +54,11 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.save(boardEntity);
     }
 
+    /* @Transactional : 댓글과, 보드가 동시에 삭제 성공일때만 실행되도록 함. */
+    @Transactional
     @Override
     public void deleteBoard(Long bno) {
+        replyRepository.deleteByBoardEntity_Bno(bno);
         boardRepository.deleteById(bno);
     }
 

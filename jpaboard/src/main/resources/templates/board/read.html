@@ -21,6 +21,14 @@
                th:value="${board.Author}" readonly>
       </div>
       <div class="mb-3">
+        <label class="form-label">Upload Image</label>
+        <div class="col" th:if="${board.fileNames !=null && board.fileNames.size()>0}">
+          <div class="container-fluid d-flex uploadResult" style="flex-wrap:wrap;">
+            <img class="m-3" th:each="fileName:${board.fileNames}" th:src="|/board/view/s_${fileName}|">
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
         <label class="form-label">Content</label>
         <textarea class="form-control" name="content" rows="3" readonly="readonly">[[${board.content}]]</textarea>
       </div>

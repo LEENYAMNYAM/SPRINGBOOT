@@ -1,23 +1,22 @@
 package org.jmt.jpaboard.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@ToString(exclude = "boardEntity") // 중요!!
+@EqualsAndHashCode(of = "uuid")    // 순환 방지!
+@Entity
 public class BoardImage implements Comparable<BoardImage>{
     @Id
     private String uuid;
     private String filename;
     private int ord;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bno")
     private BoardEntity boardEntity;
 

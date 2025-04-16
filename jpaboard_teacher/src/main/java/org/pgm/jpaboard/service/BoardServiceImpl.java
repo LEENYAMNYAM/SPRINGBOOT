@@ -42,8 +42,9 @@ public class BoardServiceImpl implements BoardService {
     public void updateBoard(BoardDTO boardDTO) {
         BoardEntity boardEntity = boardRepository.findById(boardDTO.getBno()).get();
         boardEntity.change(boardDTO.getTitle(), boardDTO.getContent());
-        boardEntity.removeImage();
+
         if(boardDTO.getFileNames() != null) {
+            boardEntity.removeImage();
             for(String fileName : boardDTO.getFileNames()) {
                 String[] arr=fileName.split("_");
                 boardEntity.addImage(arr[0], arr[1]);

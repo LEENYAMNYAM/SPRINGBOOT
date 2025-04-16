@@ -5,7 +5,8 @@
 <div layout:fragment="content">
     <div class="card">
         <div class="card-title">Register Page</div>
-        <form action="/board/register" method="post">
+        <form action="/board/register" method="post"
+              enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <span class="input-group-text">Title</span>
                 <input type="text" name="title" class="form-controller" placeholder="Title">
@@ -13,6 +14,10 @@
             <div class="input-group mb-3">
                 <span class="input-group-text">Content</span>
                 <textarea name="content" class="form-controller col-sm-5" rows="5"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">FileUpload</span>
+                <input type="file" name="files" class="form-controller" placeholder="Author">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Author</span>

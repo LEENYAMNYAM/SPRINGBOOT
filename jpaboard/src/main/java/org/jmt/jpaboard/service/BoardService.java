@@ -1,11 +1,11 @@
 package org.jmt.jpaboard.service;
 
 import org.jmt.jpaboard.domain.BoardEntity;
-import org.jmt.jpaboard.domain.BoardImage;
 import org.jmt.jpaboard.dto.BoardDTO;
 import org.jmt.jpaboard.dto.PageRequestDTO;
 import org.jmt.jpaboard.dto.PageResponseDTO;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public interface BoardService {
@@ -25,10 +25,10 @@ public interface BoardService {
                 .build();
         if(dto.getFileNames() != null) {
             dto.getFileNames().forEach(fileName -> {
-                Strign[] arr = fileName.splite("_");
+                String[] arr = fileName.split("_");
                 /* arr[0] : uuid , arr[1] : filename*/
                 boardEntity.addImage(arr[0], arr[1]);
-            })
+            });
         }
         return boardEntity;
     }
@@ -44,7 +44,7 @@ public interface BoardService {
                 .build();
         List<String> fileNames = boardEntity.getImageSet().stream()
                 .sorted()
-                .map( BoardImage img -> img.getUuid() + "_" + img.getFilename())
+                .map(img -> img.getUuid() + "_" + img.getFilename())
                 .collect(Collectors.toList());
         boardDTO.setFileNames(fileNames);
 

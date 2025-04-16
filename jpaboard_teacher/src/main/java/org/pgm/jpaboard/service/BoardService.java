@@ -23,6 +23,7 @@ public interface BoardService {
                 .content(dto.getContent())
                 .author(dto.getAuthor())
                 .build();
+
         if(dto.getFileNames() != null) {
             dto.getFileNames().forEach(fileName -> {
                 String[] arr = fileName.split("_");

@@ -17,6 +17,18 @@
           <span class="input-group-text">Content</span>
           <textarea name="content" class="form-control col-sm-5" rows="5">[[${board.content}]]</textarea>
         </div>
+        <div class="mb-3">
+          <label class="form-label">Upload Image</label>
+          <div class="col" th:if="${board.fileNames !=null && board.fileNames.size()>0}">
+            <div class="container-fluid d-flex uploadResult" style="flex-wrap:wrap;">
+              <img class="m-3" th:each="fileName:${board.fileNames}" th:src="|/board/view/s_${fileName}|">
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">FileUpload</span>
+          <input type="file" name="files" class="form-control"  multiple="multiple">
+        </div>
         <div class="input-group mb-3">
           <span class="input-group-text">Author</span>
           <input type="text" name="author" class="form-control" th:value="${board.author}" readonly="readonly">
@@ -36,6 +48,7 @@
    e.preventDefault()
    formObj.action="/board/modify"
    formObj.method="post"
+   formObj.enctype="multipart/form-data"
    formObj.submit()
  },false)
  document.querySelector(".btn-outline-danger").addEventListener("click",function(e){
