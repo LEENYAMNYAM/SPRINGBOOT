@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+
+/*
+@EnableWebSecurity
+ : 시큐리티 쓰겠다. */
 @Configuration
 @Log4j2
 @EnableWebSecurity
@@ -67,6 +72,7 @@ public class CustomSecurityConfig {
                 .build();
     }
 
+    /* 암호화 객체 */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
