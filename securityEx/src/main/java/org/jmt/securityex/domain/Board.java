@@ -36,7 +36,7 @@ public class Board {
 
     /* @PrePersist : Entity가 저장되기 전에 먼저 호출해라 */
     @PrePersist
-    public void prePersit() {
+    public void prePersist() {
         this.hitcount = this.hitcount == null ? 0 : this.hitcount;
     }
 
