@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout/layout.html}" lang="en">
+<div layout:fragment="content">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">Read Page</div>
+<!-- /*     <form method="post" action="/board/register"> */-->
+      <div class="mb-3">
+        <label class="form-label">num</label>
+        <input type="text" class="form-control" name="num" th:value="${board.num}" readonly="readonly">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" name="title" th:value="${board.title}" readonly="readonly">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Writer</label>
+        <input type="text" class="form-control" name="writer"
+               th:value="${board.writer}" readonly="readonly">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" name="content" rows="3" readonly="readonly">[[${board.content}]]</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">hitCount</label>
+        <input type="text" class="form-control" name="readcount"
+               th:value="${board.hitcount}" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">RegDate</label>
+        <input type="text" class="form-control" name="regdate"
+               th:value="${board.regdate}" readonly>
+      </div>
+      <div class="mb-3">
+        <span sec:authorize="isAuthenticated()" th:if="${board.writer==#authentication.principal.username}">
+        <a th:href="@{/board/modify(num=${board.num})}">
+          <button type="button" class="btn btn-primary">Modify</button>
+        </a>
+        <a th:href="@{/board/remove(num=${board.num})}">
+          <button type="button" class="btn btn-danger">Remove</button>
+        </a>
+        </span>
+        <a th:href="@{/board/list}">
+          <button type="button" class="btn btn-secondary">Board List</button>
+        </a>
+      </div>
+      <!--/*      </form> */-->
+    </div>
+  </div>
+</div>
